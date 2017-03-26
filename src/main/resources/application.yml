@@ -1,0 +1,9 @@
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: none
+    datasource:
+        url: jdbc:h2:./mydb
+        driverClassName: org.h2.Driver
+        username: sa
+        password:
