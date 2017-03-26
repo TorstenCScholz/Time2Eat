@@ -17,39 +17,39 @@ import java.util.Optional;
 @SpringBootApplication
 @Controller
 public class Time2EatApplication {
-	private static final Logger log = LoggerFactory.getLogger(Time2EatApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(Time2EatApplication.class);
 
-	@Autowired
-	CustomerRepository customerRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
 //	@RequestMapping(value = "/customers/{firstName}/{lastName}", method = RequestMethod.POST)
 //	public void newCustomer(@RequestParam String firstName, @RequestParam String lastName) {
 //		customerRepository.save(new Customer(firstName, lastName));
 //	}
 
-	// TODO: I want different routes for there (e.g. /customers and /customers/1)
-	@RequestMapping(value = "/customers", method = RequestMethod.GET)
+    // TODO: I want different routes for there (e.g. /customers and /customers/1)
+    @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public String showCustomer(@RequestParam(value = "id", required = false) Long id, Model model) {
-		if (id == null) {
-			return showCustomers(model);
-		}
+        if (id == null) {
+            return showCustomers(model);
+        }
 
-		Optional<Customer> customerOptional = customerRepository.findById(id);
+        Optional<Customer> customerOptional = customerRepository.findById(id);
 
-		if (!customerOptional.isPresent()) {
-			return "customer/404";
-		}
+        if (!customerOptional.isPresent()) {
+            return "customer/404";
+        }
 
         model.addAttribute("customer", customerOptional.get());
         return "customer/customer";
     }
 
-	public String showCustomers(Model model) {
-		model.addAttribute("customers", customerRepository.findAll());
-		model.addAttribute("customerComparator", (Comparator<Customer>) (a, b) -> a.getLastName().compareTo(b.getLastName()));
+    public String showCustomers(Model model) {
+        model.addAttribute("customers", customerRepository.findAll());
+        model.addAttribute("customerComparator", (Comparator<Customer>) (a, b) -> a.getLastName().compareTo(b.getLastName()));
 
-		return "customer/customers";
-	}
+        return "customer/customers";
+    }
 
     // http://stackoverflow.com/a/25362790/5376375
 //	@RequestMapping(value = "/error")
@@ -57,9 +57,9 @@ public class Time2EatApplication {
 //        return "error";
 //    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(Time2EatApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Time2EatApplication.class, args);
+    }
 
 //	@Bean
 //	public CommandLineRunner demo(CustomerRepository customerRepository) {
